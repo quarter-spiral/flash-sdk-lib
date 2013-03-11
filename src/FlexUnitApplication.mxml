@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- This is an auto generated file and is not intended for modification. -->
+
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:flexui="flexunit.flexui.*"
+			   minWidth="955" minHeight="600" creationComplete="onCreationComplete()">
+	<fx:Script>
+		<![CDATA[
+			import com.quarterspiral.sdk.test.DomSdkTest;
+			import com.quarterspiral.sdk.test.MockDomSdkDriverTest;
+			import com.quarterspiral.sdk.test.RetrivalStateTest;
+			import com.quarterspiral.sdk.test.SdkFactoryTest;
+			import com.quarterspiral.sdk.test.SetPlayerDataResponseTest;
+			
+			import org.flexunit.runner.Request;
+			
+			public function currentRunTestSuite():Array
+			{
+				var testsToRun:Array = new Array();
+				
+				testsToRun.push(Request.methods(com.quarterspiral.sdk.test.SdkFactoryTest,["testGetInstanceInTestMode",
+					"testGetInstance"]));
+				
+				testsToRun.push(Request.methods(com.quarterspiral.sdk.test.DomSdkTest,["sdkShouldHavePlayerDataReadyWhenTheDriverSignalsIt",
+					"sdkShouldBeReadyWhenItsInitialized",
+					"usesQueueToSetPlayerData",
+					"playerInformationReturnsNullWhenNotReady",
+					"sdkShouldHavePlayerInformationReadyWhenTheDriverSignalsIt",
+					"playerDataReturnsNullWhenNotReady"]));
+				
+				testsToRun.push(Request.methods(com.quarterspiral.sdk.test.RetrivalStateTest,["testTransitionsFromReady",
+					"testTransitionsFromLoading",
+					"testInitialState",
+					"testTransitionsFromError",
+					"testTransitionsFromInit"]));
+				
+				testsToRun.push(Request.methods(com.quarterspiral.sdk.test.MockDomSdkDriverTest,["testPlayerDataRetrievalState",
+					"testPlayerData",
+					"testSetPlayerDataResponse",
+					"testInitialState",
+					"testPlayerInformationRetrievalState",
+					"testPlayerInformation",
+					"testInitialiationState"]));
+				
+				testsToRun.push(Request.methods(com.quarterspiral.sdk.test.SetPlayerDataResponseTest,["callsTheResultHandlerEvenWhenRegisteredTooLate",
+					"setsSuccessfulCorrectly",
+					"initialStateTest",
+					"setsErrorneousCorrectly",
+					"callsTheResultHandler"]));
+				return testsToRun;
+			}
+			
+			
+			private function onCreationComplete():void
+			{
+				testRunner.runWithFlexUnit4Runner(currentRunTestSuite(), "Quarter Spiral SDK");
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<flexui:FlexUnitTestRunnerUI id="testRunner" portNumber="8765">
+	</flexui:FlexUnitTestRunnerUI>
+</s:Application>

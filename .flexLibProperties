@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="com.quarterspiral.sdk.DomSdk"/>
+    <classEntry path="com.quarterspiral.sdk.test.DomSdkTest"/>
+    <classEntry path="com.quarterspiral.sdk.Sdk"/>
+    <classEntry path="com.quarterspiral.sdk.SdkFactory"/>
+    <classEntry path="com.quarterspiral.sdk.DomSdkDriver"/>
+    <classEntry path="com.quarterspiral.sdk.test.SdkFactoryTest"/>
+    <classEntry path="com.quarterspiral.sdk.BrowserDomSdkDriver"/>
+    <classEntry path="com.quarterspiral.sdk.MockDomSdkDriver"/>
+    <classEntry path="com.quarterspiral.sdk.PlayerInformation"/>
+    <classEntry path="com.quarterspiral.sdk.RetrievalState"/>
+    <classEntry path="com.quarterspiral.sdk.RetrievalStateChangeError"/>
+    <classEntry path="com.quarterspiral.sdk.test.RetrivalStateTest"/>
+    <classEntry path="com.quarterspiral.sdk.test.MockDomSdkDriverTest"/>
+    <classEntry path="com.quarterspiral.sdk.test.RetrievalStateUtils"/>
+    <classEntry path="com.quarterspiral.sdk.SetPlayerDataResponse"/>
+    <classEntry path="com.quarterspiral.sdk.test.SetPlayerDataResponseTest"/>
+    <classEntry path="com.quarterspiral.sdk.SetPlayerDataRequest"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
