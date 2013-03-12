@@ -26,7 +26,7 @@ package com.quarterspiral.sdk
 		/**
 		 * Information about the player.
 		 * 
-		 * @return <code>null</code> if information has not been retrieved yet, an instance of <code>PlayerInformation</code> otherwise.
+		 * @returns <code>null</code> if information has not been retrieved yet, an instance of <code>PlayerInformation</code> otherwise.
 		 * @see PlayerInformation
 		 */
 		function get playerInformation():PlayerInformation;
@@ -34,7 +34,7 @@ package com.quarterspiral.sdk
 		/**
 		 * Custom data of the player.
 		 * 
-		 * @return <code>null</code> if information has not been retrieved yet, an <code>Object</code> otherwise.
+		 * @returns <code>null</code> if information has not been retrieved yet, an <code>Object</code> otherwise.
 		 */
 		function get playerData():Dictionary;
 		
