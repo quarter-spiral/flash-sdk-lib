@@ -2,6 +2,7 @@ package com.quarterspiral.sdk
 {
 	import flash.display.DisplayObject;
 	import flash.display.LoaderInfo;
+	import flash.utils.getQualifiedClassName;
 
 	/**
 	 * Used to retrieve an instance of the Quarter Spiral SDK

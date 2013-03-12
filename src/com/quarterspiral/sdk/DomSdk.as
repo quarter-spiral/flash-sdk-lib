@@ -2,19 +2,21 @@ package com.quarterspiral.sdk
 {
 	import flash.utils.Dictionary;
 	
-	import mx.events.PropertyChangeEvent;
-
 	public class DomSdk implements Sdk
 	{
 		private var sdkDriver:DomSdkDriver;
 		private var setPlayerDataQueue:Array = [];
+		private var playerInformationHandlerRegistered:Boolean = false;
+		private var playerDataHandlerRegistered:Boolean = false;
+		private var playerInformationReadyCallbacks:Array = [];
+		private var playerDataReadyCallbacks:Array = [];
 		
 		public function DomSdk(driver:DomSdkDriver)
 		{
 			this.sdkDriver = driver;
 			
-			this.sdkDriver.initializationState.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, function(event:PropertyChangeEvent):void {
-				if (event.property === 'state' && event.newValue === RetrievalState.READY) {
+			this.sdkDriver.initializationState.addEventListener(StateChangeEvent.STATE_CHANGE, function(event:StateChangeEvent):void {
+				if (event.newState === RetrievalState.READY) {
 					runSetPlayerDataQueue();
 				}
 			});
@@ -30,10 +32,33 @@ package com.quarterspiral.sdk
 		
 		public function get playerData():Dictionary
 		{
-			if (!ready || !playerDataReady) {
-				return null
+			if (sdkDriver.playerDataRetrievalState !== null) {
+				if (sdkDriver.playerDataRetrievalState.state === RetrievalState.READY) {
+					return sdkDriver.playerData;
+				}
+			} else {
+				sdkDriver.retrievePlayerData();
+				retrievePlayerData();
 			}
-			return sdkDriver.playerData;
+			return null;
+		}
+		
+		public function onPlayerDataReady(callback:Function):void
+		{
+			if (playerData) {
+				callback.call(this, playerData)
+			} else {
+				playerDataReadyCallbacks.push(callback);
+			}
+		}
+		
+		public function onPlayerInformationReady(callback:Function):void
+		{
+			if (playerInformation) {
+				callback.call(this, playerInformation)
+			} else {
+				playerInformationReadyCallbacks.push(callback);
+			}
 		}
 		
 		public function get playerDataReady():Boolean
@@ -43,10 +68,14 @@ package com.quarterspiral.sdk
 		
 		public function get playerInformation():PlayerInformation
 		{
-			if (!ready || !playerInformationReady) {
-				return null;
+			if (sdkDriver.playerInformationRetrievalState !== null) {
+				if (sdkDriver.playerInformationRetrievalState.state === RetrievalState.READY) {
+					return sdkDriver.playerInformation;
+				}
+			} else {
+				retrievePlayerInformation();
 			}
-			return sdkDriver.playerInformation;
+			return null;
 		}
 		
 		public function get playerInformationReady():Boolean
@@ -85,6 +114,36 @@ package com.quarterspiral.sdk
 			request.bindToRealResponse(realResponse);
 			
 			runSetPlayerDataQueue();
+		}
+		
+		private function retrievePlayerInformation():void {
+			sdkDriver.retrievePlayerInformation();
+			if (!playerInformationHandlerRegistered) {
+				sdkDriver.playerInformationRetrievalState.addEventListener(StateChangeEvent.STATE_CHANGE, function(event:StateChangeEvent):void {
+					if (event.newState === RetrievalState.READY) {
+						while (playerInformationReadyCallbacks.length > 0) {
+							var callback:Function = playerInformationReadyCallbacks.pop();
+							callback.call(this, sdkDriver.playerInformation);
+						}
+					}
+				});
+				playerInformationHandlerRegistered = true;
+			}
+		}
+		
+		private function retrievePlayerData():void {
+			sdkDriver.retrievePlayerData();
+			if (!playerDataHandlerRegistered) {
+				sdkDriver.playerDataRetrievalState.addEventListener(StateChangeEvent.STATE_CHANGE, function(event:StateChangeEvent):void {
+					if (event.newState === RetrievalState.READY) {
+						while (playerDataReadyCallbacks.length > 0) {
+							var callback:Function = playerDataReadyCallbacks.pop();
+							callback.call(this, sdkDriver.playerData);
+						}
+					}
+				});
+				playerDataHandlerRegistered = true;
+			}
 		}
 	}
 }

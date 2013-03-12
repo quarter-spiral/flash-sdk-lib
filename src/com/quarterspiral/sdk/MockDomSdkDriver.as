@@ -141,5 +141,19 @@ package com.quarterspiral.sdk
 			rawNextPlayerDataResponse = null;
 			return response;
 		}
+		
+		public function retrievePlayerData():void
+		{
+			if (rawPlayerDataRetrievalState === null) {
+				rawPlayerDataRetrievalState = new RetrievalState();
+			}
+		}
+		
+		public function retrievePlayerInformation():void
+		{
+			if (rawPlayerInformationRetrievalState === null) {
+				rawPlayerInformationRetrievalState = new RetrievalState();
+			}
+		}
 	}
 }

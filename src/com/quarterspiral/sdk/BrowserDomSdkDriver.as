@@ -27,7 +27,6 @@ package com.quarterspiral.sdk
 				rawInitializationState.updateTo(RetrievalState.ERROR);
 				return;
 			}
-				
 			
 			var initializationState:RetrievalState = rawInitializationState;
 			var qsSetupCallback:Function = function(qs:Object):void {
@@ -51,14 +50,7 @@ package com.quarterspiral.sdk
 		
 		public function get playerData():Dictionary
 		{
-			if (playerDataRetrievalState !== null) {
-				if (playerDataRetrievalState.state === RetrievalState.READY) {
-					return rawPlayerData;
-				}
-			} else {
-				retrievePlayerData();
-			}
-			return null;
+			return rawPlayerData;
 		}
 		
 		public function get playerDataRetrievalState():RetrievalState
@@ -68,14 +60,7 @@ package com.quarterspiral.sdk
 		
 		public function get playerInformation():PlayerInformation
 		{
-			if (playerInformationRetrievalState !== null) {
-				if (playerInformationRetrievalState.state === RetrievalState.READY) {
-					return rawPlayerInformation;
-				}
-			} else {
-				retrievePlayerInformation();
-			}
-			return null;
+			return rawPlayerInformation;
 		}
 		
 		public function get playerInformationRetrievalState():RetrievalState
@@ -97,7 +82,24 @@ package com.quarterspiral.sdk
 			return rawLastPlayerDataSetResponse;
 		}
 		
-		private function retrievePlayerData():void
+		public function retrievePlayerInformation():void
+		{
+			if (playerInformationRetrievalState !== null) {
+				return;
+			}
+			
+			rawPlayerInformationRetrievalState = new RetrievalState();
+			var retrievalState:RetrievalState = rawPlayerInformationRetrievalState;
+			onReady(function():void {
+				addPlayerInformationLoadedCallback(retrievalState);
+				addPlayerInformationErrorCallback(retrievalState);
+				
+				ExternalInterface.call('QS.flash.retrievePlayerInfo')
+				retrievalState.updateTo(RetrievalState.LOADING);
+			});
+		}
+		
+		public function retrievePlayerData():void
 		{
 			if (playerDataRetrievalState !== null) {
 				return;
@@ -129,23 +131,6 @@ package com.quarterspiral.sdk
 				retrievalState.updateTo(RetrievalState.ERROR);
 			}
 			ExternalInterface.addCallback('qsPlayerDataErrorCallback', qsPlayerDataErrorCallback);
-		}
-		
-		private function retrievePlayerInformation():void
-		{
-			if (playerInformationRetrievalState !== null) {
-				return;
-			}
-			
-			rawPlayerInformationRetrievalState = new RetrievalState();
-			var retrievalState:RetrievalState = rawPlayerInformationRetrievalState;
-			onReady(function():void {
-				addPlayerInformationLoadedCallback(retrievalState);
-				addPlayerInformationErrorCallback(retrievalState);
-				
-				ExternalInterface.call('QS.flash.retrievePlayerInfo')
-				retrievalState.updateTo(RetrievalState.LOADING);
-			});
 		}
 		
 		private function addPlayerInformationLoadedCallback(retrievalState:RetrievalState):void

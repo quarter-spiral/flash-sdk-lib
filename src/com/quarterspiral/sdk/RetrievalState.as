@@ -38,7 +38,7 @@ package com.quarterspiral.sdk
 		private var rawState:int;
 		
 		public function RetrievalState() {
-			state = INIT;
+			rawState = INIT;
 		}
 		
 		/**
@@ -46,13 +46,8 @@ package com.quarterspiral.sdk
 		 * 
 		 * @return One of RetrievalState.INIT, RetrievalState.LOADING, RetrievalState.READY or RetrievalState.ERROR
 		 */
-		[Bindable]
 		public function get state():int {
 			return rawState;
-		}
-		
-		private function set state(newState:int):void {
-			rawState = newState;
 		}
 		
 		/**
@@ -69,7 +64,8 @@ package com.quarterspiral.sdk
 			if (TRANSITIONS[state].indexOf(newState) === -1) {
 				throw new RetrievalStateChangeError("Can not transition from " + state + " to " + newState);
 			}
-			state = newState;
+			rawState = newState;
+			dispatchEvent(new StateChangeEvent(rawState, newState));
 		}
 	}
 }

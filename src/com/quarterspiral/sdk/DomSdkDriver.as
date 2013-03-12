@@ -9,12 +9,20 @@ package com.quarterspiral.sdk
 		 */
 		function get initializationState():RetrievalState;
 		
+		
 		/**
-		 * Returns the retrieved information about a player. Triggers retrieval if not in progress, yet.
+		 * The information about the current player
 		 * 
 		 * @returns The player information if readily available, <code>null</code> if not
 		 */
 		function get playerInformation():PlayerInformation;
+		
+		/**
+		 * Triggers a retrieval of the player information. Should only run if the data has not been retrieved yet.
+		 * 
+		 * <p>If the SDK is not yet initialized it should run as soon as this is the case.</p>
+		 */
+		function retrievePlayerInformation():void;
 		
 		/**
 		 * The current state of the retrieval process for the <code>playerInformation</code>
@@ -24,11 +32,18 @@ package com.quarterspiral.sdk
 		function get playerInformationRetrievalState():RetrievalState;
 		
 		/**
-		 * Returns the retrieved data of a player. Triggers retrieval if not in progress, yet.
+		 * Returns the retrieved data of a player.
 		 * 
 		 * @returns The player's data if readily available, <code>null</code> if not
 		 */
 		function get playerData():Dictionary;
+		
+		/**
+		 * Triggers a retrieval of the player data. Should only run if the data has not been retrieved yet.
+		 * 
+		 * <p>If the SDK is not yet initialized it should run as soon as this is the case.</p>
+		 */
+		function retrievePlayerData():void;
 		
 		/**
 		 * The current state of the retrieval process for the <code>playerData</code>

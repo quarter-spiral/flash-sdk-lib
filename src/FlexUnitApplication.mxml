@@ -15,41 +15,14 @@
 			import com.quarterspiral.sdk.test.SdkFactoryTest;
 			import com.quarterspiral.sdk.test.SetPlayerDataResponseTest;
 			
-			import org.flexunit.runner.Request;
-			
 			public function currentRunTestSuite():Array
 			{
 				var testsToRun:Array = new Array();
-				
-				testsToRun.push(Request.methods(com.quarterspiral.sdk.test.SdkFactoryTest,["testGetInstanceInTestMode",
-					"testGetInstance"]));
-				
-				testsToRun.push(Request.methods(com.quarterspiral.sdk.test.DomSdkTest,["sdkShouldHavePlayerDataReadyWhenTheDriverSignalsIt",
-					"sdkShouldBeReadyWhenItsInitialized",
-					"usesQueueToSetPlayerData",
-					"playerInformationReturnsNullWhenNotReady",
-					"sdkShouldHavePlayerInformationReadyWhenTheDriverSignalsIt",
-					"playerDataReturnsNullWhenNotReady"]));
-				
-				testsToRun.push(Request.methods(com.quarterspiral.sdk.test.RetrivalStateTest,["testTransitionsFromReady",
-					"testTransitionsFromLoading",
-					"testInitialState",
-					"testTransitionsFromError",
-					"testTransitionsFromInit"]));
-				
-				testsToRun.push(Request.methods(com.quarterspiral.sdk.test.MockDomSdkDriverTest,["testPlayerDataRetrievalState",
-					"testPlayerData",
-					"testSetPlayerDataResponse",
-					"testInitialState",
-					"testPlayerInformationRetrievalState",
-					"testPlayerInformation",
-					"testInitialiationState"]));
-				
-				testsToRun.push(Request.methods(com.quarterspiral.sdk.test.SetPlayerDataResponseTest,["callsTheResultHandlerEvenWhenRegisteredTooLate",
-					"setsSuccessfulCorrectly",
-					"initialStateTest",
-					"setsErrorneousCorrectly",
-					"callsTheResultHandler"]));
+				testsToRun.push(com.quarterspiral.sdk.test.DomSdkTest);
+				testsToRun.push(com.quarterspiral.sdk.test.MockDomSdkDriverTest);
+				testsToRun.push(com.quarterspiral.sdk.test.RetrivalStateTest);
+				testsToRun.push(com.quarterspiral.sdk.test.SdkFactoryTest);
+				testsToRun.push(com.quarterspiral.sdk.test.SetPlayerDataResponseTest);
 				return testsToRun;
 			}
 			

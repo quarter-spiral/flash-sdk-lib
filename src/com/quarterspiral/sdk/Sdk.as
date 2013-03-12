@@ -55,5 +55,23 @@ package com.quarterspiral.sdk
 		 * @see SetPlayerDataResponse
 		 */
 		function setPlayerData(attribute:Object, value:Object = null):SetPlayerDataResponse;
+		
+		/**
+		 * Adds a handler to run when the player data is ready
+		 * 
+		 * <p>This also triggers the retrieval of the player data.</p>
+		 * 
+		 * @param callback The callback that is run when the player data is ready. It get's the player data passed in as the only argument.
+		 */
+		function onPlayerDataReady(callback:Function):void;
+		
+		/**
+		 * Adds a handler to run when the player data is ready
+		 * 
+		 * <p>This also triggers the retrieval of the player information.</p>
+		 * 
+		 * @param callback The callback that is run when the player information is ready. It get's the player information passed in as the only argument.
+		 */
+		function onPlayerInformationReady(callback:Function):void;
 	}
 }
