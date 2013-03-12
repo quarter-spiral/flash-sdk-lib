@@ -12,14 +12,29 @@
         <!-- The Location you wish to output to on your Computer -->
         <property name="Output.dir" location="${basedir}\..\docs" />
         <!-- Execute the ASDoc Compile -->
-        <target name="main" depends="clean,compile" description="full build of asdocs"/>
+        <target name="main" depends="clean,moveFlexUnitConfigAway,compile,moveFlexUnitConfigBack" description="full build of asdocs"/>
         <!-- DELETE the existing output folder and files and then re-generate the output folder -->
         <target name="clean">
                 <delete dir="${Output.dir}" failOnError="false" includeEmptyDirs="true"/>
                 <mkdir dir="${Output.dir}"/>
         </target>
         <!-- Run the ASDoc executable and generate the ASDocs to the new output folder -->
-        <target name="compile">
+        
+		<target name="checkForFlexUnitConfig">
+			<available file="${AppClasses.dir}/FlexUnitApplication.mxml" property="flexUnitConfig.present"></available>
+		</target>
+		<target name="moveFlexUnitConfigAway" depends="checkForFlexUnitConfig" if="flexUnitConfig.present">
+			<move file="${AppClasses.dir}/FlexUnitApplication.mxml" tofile="${AppClasses.dir}/FlexUnitApplication.mxml.no" description="Move the FlexUnit configuration out of the way"></move>
+		</target>
+	
+		<target name="checkForMovedFlexUnitConfig">
+			<available file="${AppClasses.dir}/FlexUnitApplication.mxml.no" property="movedFlexUnitConfig.present"></available>
+		</target>
+			<target name="moveFlexUnitConfigBack" depends="checkForMovedFlexUnitConfig" if="movedFlexUnitConfig.present">
+				<move file="${AppClasses.dir}/FlexUnitApplication.mxml.no" tofile="${AppClasses.dir}/FlexUnitApplication.mxml" description="Move the FlexUnit configuration back in place"></move>
+			</target>
+	
+		<target name="compile">
                 <exec executable="${AsDocs.dir}" failonerror="true">
                   <arg line='-source-path "${AppClasses.dir}"'/>
                   <arg line='-doc-sources "${AppClasses.dir}"'/>
