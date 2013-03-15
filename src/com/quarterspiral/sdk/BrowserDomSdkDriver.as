@@ -27,7 +27,6 @@ package com.quarterspiral.sdk
 				rawInitializationState.updateTo(RetrievalState.ERROR);
 				return;
 			}
-			
 			var initializationState:RetrievalState = rawInitializationState;
 			var qsSetupCallback:Function = function(qs:Object):void {
 				initializationState.updateTo(RetrievalState.READY);
@@ -39,8 +38,8 @@ package com.quarterspiral.sdk
 				initializationState.updateTo(RetrievalState.ERROR);
 			}
 			ExternalInterface.addCallback('qsSetupErrorCallback', qsSetupErrorCallback);
-			ExternalInterface.call('QS.setup')
 			initializationState.updateTo(RetrievalState.LOADING);
+			ExternalInterface.call('QS.setup')
 		}
 		
 		public function get initializationState():RetrievalState
@@ -87,9 +86,9 @@ package com.quarterspiral.sdk
 			if (playerInformationRetrievalState !== null) {
 				return;
 			}
-			
 			rawPlayerInformationRetrievalState = new RetrievalState();
 			var retrievalState:RetrievalState = rawPlayerInformationRetrievalState;
+
 			onReady(function():void {
 				addPlayerInformationLoadedCallback(retrievalState);
 				addPlayerInformationErrorCallback(retrievalState);
