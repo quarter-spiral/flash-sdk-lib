@@ -13,10 +13,10 @@ To start using our SDK you first need to obtain an instance of the SDK. You can 
 ```as3
 	import com.quarterspiral.sdk.*;
 	…
-	var qsSdk:Sdk = SdkFactory.getInstance(Starling.current.nativeStage);
+	var qsSdk:Sdk = SdkFactory.getInstance(Starling.current.nativeStage.root.loaderInfo);
 ```
 
-In the code above we are using the [Starling]() game framework as an example. It doesn't matter if you use a framework at all or which one you use. Just make sure to pass in any ``DisplayObject`` to the ``getInstance`` method of the ``SdkFactory``. Using your main stage has proven to be a good start.
+In the code above we are using the [Starling]() game framework as an example. It doesn't matter if you use a framework at all or which one you use. Just make sure to pass in the ``LoaderInfo`` object to the ``getInstance`` method of the ``SdkFactory`` which comes with the flash params of your project. Using your main stage has proven to be a good start.
 
 ## Information about a player
 

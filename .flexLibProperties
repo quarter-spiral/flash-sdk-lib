@@ -18,7 +18,6 @@
     <classEntry path="com.quarterspiral.sdk.SetPlayerDataResponse"/>
     <classEntry path="com.quarterspiral.sdk.test.SetPlayerDataResponseTest"/>
     <classEntry path="com.quarterspiral.sdk.SetPlayerDataRequest"/>
-    <classEntry path="com.quarterspiral.sdk.StateChangeEvent"/>
     <classEntry path="com.quarterspiral.sdk.Version"/>
   </includeClasses>
   <includeResources/>

@@ -1,8 +1,6 @@
 package com.quarterspiral.sdk
 {
-	import flash.display.DisplayObject;
 	import flash.display.LoaderInfo;
-	import flash.utils.getQualifiedClassName;
 
 	/**
 	 * Used to retrieve an instance of the Quarter Spiral SDK
@@ -19,7 +17,7 @@ package com.quarterspiral.sdk
 		 * Returns an instance of <code>Sdk</code> to use in your code.
 		 * 
 		 * @param canvasUrlDeterminator To determine the URL of the Quarter Spiral canvas host you should
-		 * 								either pass in any <code>DisplayObject</code> of your project (e.g. your <code>Stage</code>).
+		 * 								either pass in the <code>LoaderInfo</code> of your project that comes with the flash params
 		 * 								In edge cases where this is not possible you might also pass in the plain canvas URL as a string.
 		 */
 		public static function getInstance(canvasUrlDeterminator:Object):Sdk {
@@ -47,12 +45,12 @@ package com.quarterspiral.sdk
 		}
 		
 		private static function extractCanvasUrl(canvasUrlDeterminator:Object):String {
-			if (canvasUrlDeterminator is DisplayObject) {
-				return LoaderInfo(DisplayObject(canvasUrlDeterminator).root.loaderInfo).parameters.qsCanvasHost;
+			if (canvasUrlDeterminator is LoaderInfo) {
+				return (canvasUrlDeterminator as LoaderInfo).parameters.qsCanvasHost;
 			} else if (canvasUrlDeterminator is String) {
 				return String(canvasUrlDeterminator);
 			} else {
-				throw new Error("Must provide canvas URL as DisplayObject or plain String!");
+				throw new Error("Must provide canvas URL as LoaderInfo or plain String!");
 			}
 		}
 		
